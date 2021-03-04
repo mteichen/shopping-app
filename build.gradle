@@ -28,7 +28,7 @@ description = 'shopping-app'
 java {
     sourceCompatibility = JavaVersion.VERSION_11
 }
-def user = 'dwalke30'
+def user = 'mteichen'
 
 bootJar {
     mainClassName = 'edu.depaul.se433.shoppingapp.ShoppingAppApplication'
