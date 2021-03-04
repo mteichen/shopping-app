@@ -1,7 +1,9 @@
 # Description
-Final Project for SE333: Software Testing taken at DePaul in the Winter 2020-2021 quarter. 
+Final Project for SE333: Software Testing taken at DePaul in the Winter 2020-2021 quarter. Added a testing framwork to the software.
+
 Base code taken from Professor Daniel Walker at https://github.com/walkerdan/shopping-app
-Added a testing framwork to the software.
+
+
 
 # ShoppingApp
 ShoppingApp is a rudimentary online shopping application that is used to demonstrate various software testing techniques and concepts.
