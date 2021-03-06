@@ -13,29 +13,36 @@ import org.junit.jupiter.params.provider.MethodSource;
 /*
 Testing of TotalCostCalculator.calculate(double initial cost, String state, ShippingType shipping)
                                      returns double
-------------------------------------------------------------------------------------------------
-Test suite executes the following tests:
-  -Equivalence Partition testing
-    -Strong/Normal
-    -Weak/Robust
-  -Boundary testing
-    -normal
+----------------------------------------------------------------------------------------------------
+    Test suite executes the following tests:
+      -Equivalence Partition testing
+        -Strong/Normal
+        -Weak/Robust
+      -Boundary testing
+        -normal
 
-               ------Equivalence Classes------
+                             ------Equivalence Classes------
 
-Variable                 Class             Representative Value
-------------------------------------------------------------------
-                      initial cost
-Valid                   >0                      20.00
-Invalid
-                      state
+              Variable                 Class             Representative Value
+              ------------------------------------------------------------------
+                                isFreeStandardShip
+              Valid                    >50(free standard)       75.00
+                                       0-50(standard costs)     25.00
+              Invalid                  <0                      -20.00
+              ------------------------------------------------------------------
+                                stateTax
+              Valid                   6% tax (IL, CA, NY)       IL
+                                      no state tax              WI
+              Invalid                 not a state               XX
+              ------------------------------------------------------------------
+                                shipping type
+              Valid                   standard                  STANDARD
+                                      next day                  NEXT_DAY
+              Invalid                 no type                   null
+              ------------------------------------------------------------------
 
-
-                      shipping type
-
-
-Results of testing will be documented in excel spreadsheet file: Teichen_shoppingApp_Spreadsheet
-------------------------------------------------------------------------------------------------
+Results of this testing suite in excel spreadsheet file: ./Teichen_shoppingApp_Spreadsheet
+----------------------------------------------------------------------------------------------------
 */
 
 public class testDoubleCalculate {
