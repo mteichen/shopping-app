@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,7 +28,7 @@ public class testPurchaseAgentMocks {
   @DisplayName("averagePurchase() test for filled list")
   void testAveragePurchaseFilledList(){
     //give mock intended behavior for getting purchases
-    List<Purchase> mockList = new ArrayList<Purchase>();
+    List<Purchase> mockList = new ArrayList<>();
     mockList.add(Purchase.make("Test", LocalDate.now(), 60.00, "WI", "STANDARD"));
     mockList.add(Purchase.make("Test", LocalDate.now(), 70.00, "WI", "STANDARD"));
     mockList.add(Purchase.make("Test", LocalDate.now(), 80.00, "WI", "STANDARD"));
@@ -44,7 +43,7 @@ public class testPurchaseAgentMocks {
   @DisplayName("averagePurchase() test for empty list")
   void testAveragePurchaseEmptyList(){
     //give mock intended behavior for getting purchases
-    List<Purchase> mockList = new ArrayList<Purchase>();
+    List<Purchase> mockList = new ArrayList<>();
     when(mockDBO.getPurchases(anyString())).thenReturn(mockList);
 
     double actual = purchaseAgent.averagePurchase("Test");
