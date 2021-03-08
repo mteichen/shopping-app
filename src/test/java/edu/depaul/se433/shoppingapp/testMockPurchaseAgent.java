@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class testPurchaseAgentMocks {
+public class testMockPurchaseAgent {
 
   private PurchaseDBO mockDBO;
   private PurchaseAgent purchaseAgent;

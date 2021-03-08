@@ -35,8 +35,6 @@ Test suite executes the following tests:
               ------------------------------------------------------------------
                                 stateTax
               Valid                   6% tax (IL)               IL
-                                      6% tax (CA)               CA
-                                      6% tax (NY)               NY
                                       no state tax              WI
               Invalid                 not a state               XX
                                       no state                  null
@@ -65,14 +63,12 @@ Test suite executes the following tests:
 
 public class testMockTotalCostCalculator {
 
-  private TotalCostCalculator totalCalculator;
   private ShoppingCart mockCart;
 
   /*Equivalence Class Testing*/
 
   @BeforeEach
   void setup(){
-    totalCalculator = new TotalCostCalculator();
     mockCart = mock(ShoppingCart.class);
   }
 
@@ -81,7 +77,7 @@ public class testMockTotalCostCalculator {
   @MethodSource("nextStrongNormal")
   void strongNormalTest(double initialCost, String state, ShippingType shipping, Bill expected){
     when(mockCart.cost()).thenReturn(initialCost);
-    Bill actual = totalCalculator.calculate(mockCart, state, shipping);
+    Bill actual = TotalCostCalculator.calculate(mockCart, state, shipping);
     assertEquals(expected, actual);
   }
 
@@ -89,18 +85,10 @@ public class testMockTotalCostCalculator {
     return Stream.of(
         Arguments.of(75.00, "IL", STANDARD, new Bill(75.00, 0, 4.50, 79.50)),
         Arguments.of(75.00, "IL", NEXT_DAY, new Bill(75.00, 25.00, 4.50, 104.50)),
-        Arguments.of(75.00, "CA", STANDARD, new Bill(75.00, 0, 4.50, 79.50)),
-        Arguments.of(75.00, "CA", NEXT_DAY, new Bill(75.00, 25.00, 4.50, 104.50)),
-        Arguments.of(75.00, "NY", STANDARD, new Bill(75.00, 0, 4.50, 79.50)),
-        Arguments.of(75.00, "NY", NEXT_DAY, new Bill(75.00, 25.00, 4.50, 104.50)),
         Arguments.of(75.00, "WI", STANDARD, new Bill(75.00, 0, 0, 75.00)),
         Arguments.of(75.00, "WI", NEXT_DAY, new Bill(75.00, 25.00, 0, 100.00)),
         Arguments.of(25.00, "IL", STANDARD, new Bill(25.00, 10.00, 1.50, 36.50)),
         Arguments.of(25.00, "IL", NEXT_DAY, new Bill(25.00, 25.00, 1.50, 51.50)),
-        Arguments.of(25.00, "CA", STANDARD, new Bill(25.00, 10.00, 1.50, 36.50)),
-        Arguments.of(25.00, "CA", NEXT_DAY, new Bill(25.00, 25.00, 1.50, 51.50)),
-        Arguments.of(25.00, "NY", STANDARD, new Bill(25.00, 10.00, 1.50, 36.50)),
-        Arguments.of(25.00, "NY", NEXT_DAY, new Bill(25.00, 25.00, 1.50, 51.50)),
         Arguments.of(25.00, "WI", STANDARD, new Bill(25.00, 10.00, 0, 35.00)),
         Arguments.of(25.00, "WI", NEXT_DAY, new Bill(25.00, 25.00, 0, 50.00))
     );
@@ -111,7 +99,7 @@ public class testMockTotalCostCalculator {
   @MethodSource("nextWeakRobust")
   void weakRobustTest(double initialCost, String state, ShippingType shipping){
     when(mockCart.cost()).thenReturn(initialCost);
-    assertThrows(RuntimeException.class, () -> totalCalculator.calculate(mockCart, state, shipping));
+    assertThrows(RuntimeException.class, () -> TotalCostCalculator.calculate(mockCart, state, shipping));
   }
 
   private static Stream<Arguments>nextWeakRobust(){
@@ -130,7 +118,7 @@ public class testMockTotalCostCalculator {
   @MethodSource("nextBoundary")
   void boundaryTest(double initialCost, String state, ShippingType shipping, Bill expected){
     when(mockCart.cost()).thenReturn(initialCost);
-    Bill actual = totalCalculator.calculate(mockCart, state, shipping);
+    Bill actual = TotalCostCalculator.calculate(mockCart, state, shipping);
     assertEquals(expected, actual);
   }
 
