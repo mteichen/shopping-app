@@ -16,17 +16,17 @@ public class stepsItemPurchaseQuantity {
   private Object invalidQuantity;
 
   @Given("Customer wants to a {word} product")
-  public void product_name(String productName){ name = productName; }
+  void product_name(String productName){ name = productName; }
 
   @And("Product costs {double}")
-  public void unit_price(double price) { unitPrice = price; }
+  void unit_price(double price) { unitPrice = price; }
 
   @Given("Customer wants {int}")
-  public void product_quantity(Integer count) { quantity = count; }
+  void product_quantity(Integer count) { quantity = count; }
 
 
   @Then("Value of purchases is {double}")
-  public void purchase_price(double expTotal) {
+  void purchase_price(double expTotal) {
 
     PurchaseItem item = new PurchaseItem(name, unitPrice, quantity);
     double actTotal = item.value();
@@ -35,7 +35,7 @@ public class stepsItemPurchaseQuantity {
   }
 
   @Then("Customer gets an error")
-  public void check_error(){
+  void check_error(){
     PurchaseItem item = new PurchaseItem(name, unitPrice, quantity);
     assertThrows(RuntimeException.class, item::value);
   }

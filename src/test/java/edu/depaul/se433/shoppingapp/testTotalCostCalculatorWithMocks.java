@@ -61,7 +61,7 @@ Test suite executes the following tests:
 ----------------------------------------------------------------------------------------------------
 */
 
-public class testMockTotalCostCalculator {
+public class testTotalCostCalculatorWithMocks {
 
   private ShoppingCart mockCart;
 

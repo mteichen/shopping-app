@@ -9,11 +9,12 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
+import org.jdbi.v3.core.JdbiException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class testMockPurchaseAgent {
+public class testPurchaseAgentWithMocks {
 
   private PurchaseDBO mockDBO;
   private PurchaseAgent purchaseAgent;
@@ -60,5 +61,23 @@ public class testMockPurchaseAgent {
 
     purchaseAgent.save(test);
     verify(mockDBO, times(1)).savePurchase(any());
+  }
+
+  @Test
+  @DisplayName("Test getPurchases() calls PurchaseDBO.getPurchases() function")
+  void testGetPurchases(){
+    //give mock intended behavior for getting purchases
+    when(mockDBO.getPurchases(anyString())).thenReturn(new ArrayList<>());
+
+    purchaseAgent.getPurchases("Test");
+    verify(mockDBO, times(1)).getPurchases(anyString());
+  }
+
+  @Test
+  @DisplayName("Test getPurchases() returns empty list if name not found")
+  void testGetPurchasesNotFound(){
+    List<Purchase> actual = purchaseAgent.getPurchases("Test");
+    List<Purchase> expected = new ArrayList<>();
+    assertEquals(expected, actual);
   }
 }

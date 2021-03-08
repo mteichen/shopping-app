@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id "io.freefair.lombok" version "5.1.0"
     id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'jacoco'
 }
 
 repositories {
@@ -39,11 +40,17 @@ bootJar {
 test {
     useJUnitPlatform ()
 
+    finalizedBy jacocoTestReport
+
     afterTest { desc, result ->
         logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
     }
 
     ignoreFailures(true)
+}
+
+jacocoTestReport{
+    dependsOn test
 }
 
 task packageDistribution(type: Zip) {
@@ -57,12 +64,27 @@ task packageDistribution(type: Zip) {
         include "gradlew"
         include "gradlew.bat"
         include "settings.gradle"
+        include "build/reports/tests/test/**/*"
+        include "build/reports/tests/test/**/*"
     }
 
     into("${user}-${rootProject.name}")
 }
 
+jacocoTestCoverageVerification {
+        violationRules {
+        rule {
+            limit {
+                minimum = 0.8
+            }
+        }
+    }
+}
+
 check {
+    dependsOn {
+        jacocoTestCoverageVerification
+    }
     finalizedBy packageDistribution
 }
 
