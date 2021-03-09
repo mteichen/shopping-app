@@ -3,6 +3,7 @@ plugins {
     id "io.freefair.lombok" version "5.1.0"
     id 'org.springframework.boot' version '2.3.3.RELEASE'
     id 'jacoco'
+    id 'pmd'
 }
 
 repositories {
@@ -49,6 +50,19 @@ test {
     ignoreFailures(true)
 }
 
+pmd {
+    consoleOutput = true
+    toolVersion = "6.21.0"
+    rulePriority = 5
+    ignoreFailures = true
+    ruleSets = [
+            "category/java/errorprone.xml",
+            "category/java/bestpractices.xml",
+            "category/java/performance.xml",
+            "category/java/design.xml"
+    ]
+}
+
 jacocoTestReport{
     dependsOn test
 }
@@ -64,7 +78,8 @@ task packageDistribution(type: Zip) {
         include "gradlew"
         include "gradlew.bat"
         include "settings.gradle"
-        include "build/reports/tests/test/**/*"
+        include "build/reports/jacoco/test/**/*"
+        include "build/reports/pmd/*"
         include "build/reports/tests/test/**/*"
     }
 
@@ -75,7 +90,9 @@ jacocoTestCoverageVerification {
         violationRules {
         rule {
             limit {
-                minimum = 0.8
+                //TODO
+                //uncomment for final submission
+                //minimum = 0.8
             }
         }
     }
@@ -87,5 +104,3 @@ check {
     }
     finalizedBy packageDistribution
 }
-
-

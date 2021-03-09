@@ -2,7 +2,6 @@ package edu.depaul.se433.shoppingapp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import edu.depaul.se433.shoppingapp.PurchaseItem;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,9 +9,9 @@ import io.cucumber.java.en.Then;
 
 public class stepsItemPurchaseQuantity {
 
-  private String name;
-  private double unitPrice = 0;
-  private Integer quantity = 0;
+  private transient String name;
+  private transient double unitPrice;
+  private transient Integer quantity = 0;
 
   @Given("Customer wants to a {word} product")
   public void product_name(String productName){ name = productName; }

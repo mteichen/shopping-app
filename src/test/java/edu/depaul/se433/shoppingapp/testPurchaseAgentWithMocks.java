@@ -9,15 +9,14 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-import org.jdbi.v3.core.JdbiException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class testPurchaseAgentWithMocks {
 
-  private PurchaseDBO mockDBO;
-  private PurchaseAgent purchaseAgent;
+  private transient PurchaseDBO mockDBO;
+  private transient PurchaseAgent purchaseAgent;
 
   @BeforeEach
   void setupMock(){

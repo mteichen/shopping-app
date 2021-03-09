@@ -6,15 +6,8 @@
 package edu.depaul.se433.shoppingapp;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 import javax.sql.DataSource;
 import org.h2.jdbcx.JdbcConnectionPool;

@@ -81,6 +81,7 @@ public class Purchase {
     this.state = state;
   }
 
+  @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append("Purchase(name: ")

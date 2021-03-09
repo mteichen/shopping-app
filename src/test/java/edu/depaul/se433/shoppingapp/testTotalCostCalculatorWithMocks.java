@@ -63,7 +63,7 @@ Test suite executes the following tests:
 
 public class testTotalCostCalculatorWithMocks {
 
-  private ShoppingCart mockCart;
+  private transient ShoppingCart mockCart;
 
   /*Equivalence Class Testing*/
 

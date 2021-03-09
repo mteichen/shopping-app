@@ -4,10 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static edu.depaul.se433.shoppingapp.ShippingType.STANDARD;
 import static org.mockito.Mockito.*;
 
-import edu.depaul.se433.shoppingapp.Bill;
-import edu.depaul.se433.shoppingapp.ShippingType;
-import edu.depaul.se433.shoppingapp.ShoppingCart;
-import edu.depaul.se433.shoppingapp.TotalCostCalculator;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,10 +11,10 @@ import io.cucumber.java.en.But;
 
 public class stepsTotalCost {
 
-  private double initialCost = 0;
-  private ShippingType shipping = STANDARD;
-  private String state = "IL";
-  private double expTotal = 0;
+  private transient double initialCost;
+  private transient ShippingType shipping = STANDARD;
+  private transient String state = "IL";
+  private transient double expTotal;
 
   private ShoppingCart mockCart;
 

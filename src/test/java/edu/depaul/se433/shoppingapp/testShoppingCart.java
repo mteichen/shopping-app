@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 public class testShoppingCart {
 
-  private ShoppingCart cart;
-  private PurchaseItem mockItem;
+  private transient ShoppingCart cart;
+  private transient PurchaseItem mockItem;
 
   @BeforeEach
   void setup() {

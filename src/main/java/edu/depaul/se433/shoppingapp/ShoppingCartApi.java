@@ -5,6 +5,7 @@
  */
 package edu.depaul.se433.shoppingapp;
 
+import java.util.logging.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,8 @@ import java.time.LocalDate;
  * endpoints to underlying service classes.
  */
 public class ShoppingCartApi {
+
+  static final Logger log = Logger.getLogger(ShoppingCartApi.class.getName());
 
   @Resource(name = "shoppingCart")
   ShoppingCart shoppingCart;
@@ -53,7 +56,7 @@ public class ShoppingCartApi {
   public String addItem(@RequestBody PurchaseItem newItem) {
     shoppingCart.addItem(newItem);
 
-    System.out.println(newItem);
+    log.fine(newItem.toString());
     return "Cart contains " + shoppingCart.itemCount() + " items";
   }
 

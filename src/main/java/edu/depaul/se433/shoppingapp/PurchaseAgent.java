@@ -9,7 +9,6 @@ import org.jdbi.v3.core.JdbiException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalDouble;
 
 /**
  * The Purchase agent uses aPurchaseDBO to save and retrieve purchase information.
@@ -37,9 +36,9 @@ public class PurchaseAgent {
 
   public double averagePurchase(String user) {
     List<Purchase> purchases = dbo.getPurchases(user);
-    short cnt = 0;
+    int cnt = 0;
     double total = 0.0;
-    for (short i = 0; i < purchases.size(); i++) {
+    for (int i = 0; i < purchases.size(); i++) {
       Purchase p = purchases.get(i);
       cnt++;
       total += p.getCost();
