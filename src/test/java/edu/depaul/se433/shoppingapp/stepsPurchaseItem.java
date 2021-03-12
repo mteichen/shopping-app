@@ -7,7 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
 
-public class stepsItemPurchaseQuantity {
+public class stepsPurchaseItem {
 
   private transient String name;
   private transient double unitPrice;

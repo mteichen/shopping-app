@@ -92,4 +92,18 @@ public class Purchase {
     return builder.toString();
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Purchase purchase = (Purchase) o;
+
+    if (!this.customerName.equals(purchase.getCustomerName())) return false;
+    if (!this.purchaseDate.equals(purchase.getPurchaseDate())) return false;
+    if (Double.compare(this.cost, purchase.getCost()) != 0) return false;
+    if (!this.state.equals(purchase.getState())) return false;
+    return (this.shipping.equals(purchase.getShipping()));
+  }
+
 }

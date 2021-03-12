@@ -89,4 +89,9 @@ public class ShoppingCartApi {
   public PurchaseAgent purchaseAgent() throws IOException {
     return new PurchaseAgent(new PurchaseDBO());
   }
+
+  public ShoppingCartApi(ShoppingCart mockCart, PurchaseAgent mockAgent) {
+    this.shoppingCart = mockCart;
+    this.purchaseAgent = mockAgent;
+  }
 }

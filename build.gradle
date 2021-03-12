@@ -34,20 +34,24 @@ java {
 }
 def user = 'mteichen'
 
+task cukesTest(type: Test) {
+    include "edu/depaul/se433/shoppingapp/testCucumberRunner*"
+}
+
 bootJar {
     mainClassName = 'edu.depaul.se433.shoppingapp.ShoppingAppApplication'
 }
 
 test {
     useJUnitPlatform ()
+    ignoreFailures(true)
 
-    finalizedBy jacocoTestReport
 
     afterTest { desc, result ->
         logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
     }
 
-    ignoreFailures(true)
+    finalizedBy jacocoTestReport
 }
 
 pmd {
@@ -90,9 +94,7 @@ jacocoTestCoverageVerification {
         violationRules {
         rule {
             limit {
-                //TODO
-                //uncomment for final submission
-                //minimum = 0.8
+               minimum = 0.8
             }
         }
     }
