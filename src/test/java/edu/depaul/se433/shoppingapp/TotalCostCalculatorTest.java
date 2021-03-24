@@ -1,12 +1,11 @@
 package edu.depaul.se433.shoppingapp;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static edu.depaul.se433.shoppingapp.ShippingType.STANDARD;
 import static edu.depaul.se433.shoppingapp.ShippingType.NEXT_DAY;
-
+import static edu.depaul.se433.shoppingapp.ShippingType.STANDARD;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -61,19 +60,11 @@ import org.junit.jupiter.params.provider.MethodSource;
 ----------------------------------------------------------------------------------------------------
 */
 
-public class testTotalCostCalculator {
+public class TotalCostCalculatorTest {
 
   /*Equivalence Class Testing*/
 
-  @ParameterizedTest
-  @DisplayName("Strong Normal Equivalence Tests")
-  @MethodSource("nextStrongNormal")
-  void strongNormalTest(double initialCost, String state, ShippingType shipping, double expected){
-    double actual = TotalCostCalculator.calculate(initialCost, state, shipping);
-    assertEquals(expected, actual);
-  }
-
-  private static Stream<Arguments> nextStrongNormal(){
+  private static Stream<Arguments> nextStrongNormal() {
     return Stream.of(
         Arguments.of(75.00, "IL", STANDARD, 79.50),
         Arguments.of(75.00, "IL", NEXT_DAY, 104.50),
@@ -86,14 +77,7 @@ public class testTotalCostCalculator {
     );
   }
 
-  @ParameterizedTest
-  @DisplayName("Weak Robust Equivalence Tests")
-  @MethodSource("nextWeakRobust")
-  void weakRobustTest(double initialCost, String state, ShippingType shipping){
-    assertThrows(RuntimeException.class, () -> TotalCostCalculator.calculate(initialCost, state, shipping));
-  }
-
-  private static Stream<Arguments> nextWeakRobust(){
+  private static Stream<Arguments> nextWeakRobust() {
     return Stream.of(
         Arguments.of(-20.00, "WI", STANDARD),
         Arguments.of(75.00, "XX", STANDARD),
@@ -102,17 +86,7 @@ public class testTotalCostCalculator {
     );
   }
 
-        /*Boundary Testing*/
-
-  @ParameterizedTest
-  @DisplayName("Normal Boundary Tests")
-  @MethodSource("nextBoundary")
-  void boundaryTest(double initialCost, String state, ShippingType shipping, double expected){
-    double actual = TotalCostCalculator.calculate(initialCost, state, shipping);
-    assertEquals(expected, actual);
-  }
-
-  private static Stream<Arguments>nextBoundary(){
+  private static Stream<Arguments> nextBoundary() {
     return Stream.of(
         Arguments.of(1000.00, "WI", STANDARD, 1000.00),
         Arguments.of(75.00, "WI", STANDARD, 75.00),
@@ -124,6 +98,32 @@ public class testTotalCostCalculator {
         Arguments.of(0.02, "WI", STANDARD, 10.02),
         Arguments.of(0.01, "WI", STANDARD, 10.01)
     );
+  }
+
+  @ParameterizedTest
+  @DisplayName("Strong Normal Equivalence Tests")
+  @MethodSource("nextStrongNormal")
+  void strongNormalTest(double initialCost, String state, ShippingType shipping, double expected) {
+    double actual = TotalCostCalculator.calculate(initialCost, state, shipping);
+    assertEquals(expected, actual);
+  }
+
+  /*Boundary Testing*/
+
+  @ParameterizedTest
+  @DisplayName("Weak Robust Equivalence Tests")
+  @MethodSource("nextWeakRobust")
+  void weakRobustTest(double initialCost, String state, ShippingType shipping) {
+    assertThrows(RuntimeException.class,
+        () -> TotalCostCalculator.calculate(initialCost, state, shipping));
+  }
+
+  @ParameterizedTest
+  @DisplayName("Normal Boundary Tests")
+  @MethodSource("nextBoundary")
+  void boundaryTest(double initialCost, String state, ShippingType shipping, double expected) {
+    double actual = TotalCostCalculator.calculate(initialCost, state, shipping);
+    assertEquals(expected, actual);
   }
 
 }

@@ -1,13 +1,14 @@
 package edu.depaul.se433.shoppingapp;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class testShoppingCart {
+public class ShoppingCartTest {
 
   private transient ShoppingCart cart;
   private transient PurchaseItem mockItem;
@@ -21,7 +22,7 @@ public class testShoppingCart {
 
   @Test
   @DisplayName("Test that addItem() adds appropriate items")
-  void testAddItem(){
+  void testAddItem() {
     cart.addItem(mockItem);
     int expected = 1;
     int actual = cart.itemCount();
@@ -30,7 +31,7 @@ public class testShoppingCart {
 
   @Test
   @DisplayName("Test that clear() empties cart")
-  void testItemClear(){
+  void testItemClear() {
     cart.addItem(mockItem);
     cart.clear();
     int expected = 0;
@@ -40,7 +41,7 @@ public class testShoppingCart {
 
   @Test
   @DisplayName("Test that cost() will return appropriate total for cart")
-  void testItemCost(){
+  void testItemCost() {
     cart.addItem(mockItem);
     when(mockItem.value()).thenReturn(10.00);
 

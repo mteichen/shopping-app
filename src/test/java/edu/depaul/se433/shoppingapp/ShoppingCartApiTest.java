@@ -1,19 +1,25 @@
 package edu.depaul.se433.shoppingapp;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class testShoppingCartApi {
+public class ShoppingCartApiTest {
 
   private transient ShoppingCartApi api;
   private transient ShoppingCart mockCart;
   private transient PurchaseAgent mockAgent;
 
   @BeforeEach
-  void setup(){
+  void setup() {
     mockCart = mock(ShoppingCart.class);
     mockAgent = mock(PurchaseAgent.class);
     api = new ShoppingCartApi(mockCart, mockAgent);
@@ -21,7 +27,7 @@ public class testShoppingCartApi {
 
   @Test
   @DisplayName("verify that addItem calls appropriate functions ")
-  void testAddItem(){
+  void testAddItem() {
     doNothing().when(mockCart).addItem(any());
 
     PurchaseItem mockPurchase = mock(PurchaseItem.class);
@@ -31,7 +37,7 @@ public class testShoppingCartApi {
 
   @Test
   @DisplayName("test that getPrice calls correct methods")
-  void testGetPrice(){
+  void testGetPrice() {
     when(mockCart.cost()).thenReturn(0.00);
 
     api.getPrice();
@@ -40,7 +46,7 @@ public class testShoppingCartApi {
 
   @Test
   @DisplayName("test that getAveragePurchase calls correct methods")
-  void testGetAverage(){
+  void testGetAverage() {
     when(mockAgent.averagePurchase(anyString())).thenReturn(0.00);
 
     api.getAvergaPurchase("test");

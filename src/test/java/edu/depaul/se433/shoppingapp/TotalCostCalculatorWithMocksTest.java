@@ -2,11 +2,12 @@ package edu.depaul.se433.shoppingapp;
 
 import static edu.depaul.se433.shoppingapp.ShippingType.NEXT_DAY;
 import static edu.depaul.se433.shoppingapp.ShippingType.STANDARD;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -61,27 +62,13 @@ Test suite executes the following tests:
 ----------------------------------------------------------------------------------------------------
 */
 
-public class testTotalCostCalculatorWithMocks {
+public class TotalCostCalculatorWithMocksTest {
 
   private transient ShoppingCart mockCart;
 
   /*Equivalence Class Testing*/
 
-  @BeforeEach
-  void setup(){
-    mockCart = mock(ShoppingCart.class);
-  }
-
-  @ParameterizedTest
-  @DisplayName("Strong Normal Equivalence Tests")
-  @MethodSource("nextStrongNormal")
-  void strongNormalTest(double initialCost, String state, ShippingType shipping, Bill expected){
-    when(mockCart.cost()).thenReturn(initialCost);
-    Bill actual = TotalCostCalculator.calculate(mockCart, state, shipping);
-    assertEquals(expected, actual);
-  }
-
-  private static Stream<Arguments>nextStrongNormal(){
+  private static Stream<Arguments> nextStrongNormal() {
     return Stream.of(
         Arguments.of(75.00, "IL", STANDARD, new Bill(75.00, 0, 4.50, 79.50)),
         Arguments.of(75.00, "IL", NEXT_DAY, new Bill(75.00, 25.00, 4.50, 104.50)),
@@ -94,15 +81,7 @@ public class testTotalCostCalculatorWithMocks {
     );
   }
 
-  @ParameterizedTest
-  @DisplayName("Weak Robust Equivalence Tests")
-  @MethodSource("nextWeakRobust")
-  void weakRobustTest(double initialCost, String state, ShippingType shipping){
-    when(mockCart.cost()).thenReturn(initialCost);
-    assertThrows(RuntimeException.class, () -> TotalCostCalculator.calculate(mockCart, state, shipping));
-  }
-
-  private static Stream<Arguments>nextWeakRobust(){
+  private static Stream<Arguments> nextWeakRobust() {
     return Stream.of(
         Arguments.of(-20.00, "WI", STANDARD),
         Arguments.of(75.00, "XX", STANDARD),
@@ -111,18 +90,7 @@ public class testTotalCostCalculatorWithMocks {
     );
   }
 
-      /*Boundary Testing*/
-
-  @ParameterizedTest
-  @DisplayName("Normal Boundary Tests")
-  @MethodSource("nextBoundary")
-  void boundaryTest(double initialCost, String state, ShippingType shipping, Bill expected){
-    when(mockCart.cost()).thenReturn(initialCost);
-    Bill actual = TotalCostCalculator.calculate(mockCart, state, shipping);
-    assertEquals(expected, actual);
-  }
-
-  private static Stream<Arguments>nextBoundary(){
+  private static Stream<Arguments> nextBoundary() {
     return Stream.of(
         Arguments.of(1000.00, "WI", STANDARD, new Bill(1000.00, 0, 0, 1000.00)),
         Arguments.of(75.00, "WI", STANDARD, new Bill(75.00, 0, 0, 75.00)),
@@ -134,6 +102,40 @@ public class testTotalCostCalculatorWithMocks {
         Arguments.of(0.02, "WI", STANDARD, new Bill(0.02, 10.00, 0, 10.02)),
         Arguments.of(0.01, "WI", STANDARD, new Bill(0.01, 10.00, 0, 10.01))
     );
+  }
+
+  @BeforeEach
+  void setup() {
+    mockCart = mock(ShoppingCart.class);
+  }
+
+  @ParameterizedTest
+  @DisplayName("Strong Normal Equivalence Tests")
+  @MethodSource("nextStrongNormal")
+  void strongNormalTest(double initialCost, String state, ShippingType shipping, Bill expected) {
+    when(mockCart.cost()).thenReturn(initialCost);
+    Bill actual = TotalCostCalculator.calculate(mockCart, state, shipping);
+    assertEquals(expected, actual);
+  }
+
+  /*Boundary Testing*/
+
+  @ParameterizedTest
+  @DisplayName("Weak Robust Equivalence Tests")
+  @MethodSource("nextWeakRobust")
+  void weakRobustTest(double initialCost, String state, ShippingType shipping) {
+    when(mockCart.cost()).thenReturn(initialCost);
+    assertThrows(RuntimeException.class,
+        () -> TotalCostCalculator.calculate(mockCart, state, shipping));
+  }
+
+  @ParameterizedTest
+  @DisplayName("Normal Boundary Tests")
+  @MethodSource("nextBoundary")
+  void boundaryTest(double initialCost, String state, ShippingType shipping, Bill expected) {
+    when(mockCart.cost()).thenReturn(initialCost);
+    Bill actual = TotalCostCalculator.calculate(mockCart, state, shipping);
+    assertEquals(expected, actual);
   }
 
 }
