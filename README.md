@@ -1,5 +1,10 @@
 # Description
-Final Project for SE333: Software Testing taken at DePaul in the Winter 2020-2021 quarter. Added a testing framwork to the software.
+Final Project for SE333: Software Testing taken at DePaul in the Winter 2020-2021 quarter. Application code written by Professor Daniel Walker. My additions to the software included:
+* all testing frameworks
+* changes to gradle tool to include appropriate libraries
+* inclusion of code analysis tools
+* elimination of various deprecated code in base software implementation
+* tweak in base software implementation to line up with standard coding practices
 
 Base code taken from Professor Daniel Walker at https://github.com/walkerdan/shopping-app
 
