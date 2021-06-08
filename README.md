@@ -1,5 +1,5 @@
 # Description
-Final Project for SE333: Software Testing taken at DePaul in the Winter 2020-2021 quarter. Application code written by Professor Daniel Walker. My additions to the software included:
+Final Project for SE333: Software Testing taken at DePaul in the Winter 2020-2021 quarter. Application code written by Professor Daniel Walker. Written with bad coding practices on purpose for demonstrating testing techniques. My additions to the software included:
 * all testing frameworks
 * changes to gradle tool to include appropriate libraries
 * inclusion of code analysis tools
